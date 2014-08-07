@@ -1,5 +1,5 @@
 /*
-Arduino waiting for code from PC (channel selection) and reads values from a Microchip MCP-3424 18 bit I2C ADC.
+Arduino waiting for code from PC (channel selection) reads values from a Microchip MCP-3424 18 bit I2C ADC.
 Transmits those values over serial connection.
 
 */
