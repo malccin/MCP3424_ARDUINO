@@ -25,22 +25,19 @@ int led3 = 12;
 
 uint8_t ADCconfig;
 
-void read() {
+int8_t read() {
 
 
-  configbyte = 0;        //clear config byte
+  configbyte = 0x00;        //clear config byte
   configbyte |= 1 << 7;
 
-  while ((configbyte & (1 << 7))) { // wait for update last conversion
-
+   do { // wait for update last conversion
+    
+    
     Wire.requestFrom(MCP3424_adres, 4);
 
-    if (Wire.available() != 4) {
-
-      Serial.println("ERROR"); 
-      return;
-    }
-
+    if (Wire.available() == 4) {
+      
     while (Wire.available()) {
 
       topbyte = Wire.read();
@@ -56,8 +53,17 @@ void read() {
     low = lowbyte;
 
     wynik = (top << 16) + (mid << 8) + low; // connect 3 bytes
-
-  }
+    
+    }
+    else
+    {
+     return false;
+     Serial.println("ERROR"); 
+      
+    }
+   }
+   while ((configbyte & (1 << 7)));
+  
 
 
 
